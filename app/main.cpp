@@ -1,12 +1,25 @@
 /*
  * Copyright (C) 2022 MacAndKaj - All Rights Reserved
  */
+#include <connection/ConnectionModule.hpp>
+#include <csignal>
 #include <iostream>
 
-using namespace std;
+std::atomic_flag app_is_running = true;
+
+void signal_handler(int sig)
+{
+    std::cout << "Received signal: " << sig << std::endl;
+    app_is_running.clear();
+    app_is_running.notify_all();
+}
 
 int main()
 {
-    cout << "Hello World!" << endl;
-    return 0;
+    connection::ConnectionModule module_1;
+
+    signal(SIGINT, signal_handler);
+    app_is_running.wait(/*old=*/true);
+    std::cout << "DONE "<< std::endl;
+    return EXIT_SUCCESS;
 }
