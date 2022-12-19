@@ -2,4 +2,4 @@
 # Copyright (C) 2022 MacAndKaj - All Rights Reserved
 #
 
-add_subdirectory(hci_async)
+add_subdirectory(hci)

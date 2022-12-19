@@ -6,7 +6,7 @@
 namespace common::exceptions
 {
 InitializationException::InitializationException(const std::string& what)
-    : m_what(what)
+    : m_what("[InitializationException]" + what)
 {
 }
 

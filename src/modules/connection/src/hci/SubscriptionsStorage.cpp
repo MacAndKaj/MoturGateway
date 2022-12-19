@@ -2,17 +2,18 @@
  * Copyright (C) 2022 MacAndKaj - All Rights Reserved
 */
 
-#include <connection/hci_async/SubscriptionsStorage.hpp>
+#include <connection/hci/SubscriptionsStorage.hpp>
 
-namespace connection::hci_async
+namespace connection::hci
 {
 
-SubscriptionsStorage::SubscriptionsStorage(utils::IConnectionContext& context)
-    : m_logger(context.getMainLogger())
+SubscriptionsStorage::SubscriptionsStorage(common::log::ILogger& logger)
+    : m_logger(logger)
 {
+    m_logger.info("[SubscriptionsStorage] Creating subscriptions storage");
 }
 
-ISubscriptionsStorage::SubscriptionGuard SubscriptionsStorage::subscribe(defs::HciEventName event_name, const Callback& callback)
+SubscriptionGuard SubscriptionsStorage::subscribe(defs::HciEventName event_name, const Callback& callback)
 {
     auto counters_iter = m_counters_map.find(event_name);
     if (counters_iter == m_counters_map.end())
@@ -24,11 +25,11 @@ ISubscriptionsStorage::SubscriptionGuard SubscriptionsStorage::subscribe(defs::H
 
     m_subscriptions_map[event_name].emplace_back(callback);
 
-    m_logger.info("[SubscriptionsStorage] New subscription created for event " + defs::hci_events_names[event_name]
+    m_logger.info("[SubscriptionsStorage] New subscription created for event " + defs::hci_events_names.at(event_name)
                   + " with ID: " + std::to_string(id));
-    return [event_name, id, this](){
+    return {[event_name, id, this](){
         this->removeSubscription(event_name, id);
-    };
+    }};
 }
 
 void SubscriptionsStorage::removeSubscription(defs::HciEventName event_name, int id)
@@ -54,7 +55,7 @@ void SubscriptionsStorage::removeSubscription(defs::HciEventName event_name, int
 
 void SubscriptionsStorage::notifyAll(const defs::HciEvent& event) const
 {
-    m_logger.info("[SubscriptionsStorage] Received event: " + defs::hci_events_names[event.name]);
+    m_logger.info("[SubscriptionsStorage] Received event: " + defs::hci_events_names.at(event.name));
     auto subscriptions_iter = m_subscriptions_map.find(event.name);
     if (subscriptions_iter == m_subscriptions_map.end())
     {
@@ -68,4 +69,4 @@ void SubscriptionsStorage::notifyAll(const defs::HciEvent& event) const
     }
 }
 
-} // namespace connection::hci_async
+} // namespace connection::hci

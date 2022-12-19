@@ -52,7 +52,7 @@ enum class HciEventName
 //    EVT_PSCAN_REP_MODE_CHANGE
 };
 
-std::map<HciEventName, std::string> hci_events_names = {
+const std::map<HciEventName, std::string> hci_events_names = {
     {HciEventName::InquiryComplete,     "InquiryComplete"},
     {HciEventName::InquiryResult,       "InquiryResult"},
     {HciEventName::ConnectionComplete,  "ConnectionComplete"},

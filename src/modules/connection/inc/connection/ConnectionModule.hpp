@@ -23,6 +23,8 @@ class ConnectionModule
 public:
     ConnectionModule();
 
+    void activate();
+
 private:
     std::list<std::unique_ptr<workers::IWorker>> m_workers;
     std::list<std::thread> m_threads;

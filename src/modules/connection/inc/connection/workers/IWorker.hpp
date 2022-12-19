@@ -12,7 +12,7 @@ class IWorker
 {
 public:
     virtual ~IWorker() = default;
-    virtual void work() = 0;
+    virtual void run() = 0;
 };
 
 } // namespace connection::workers

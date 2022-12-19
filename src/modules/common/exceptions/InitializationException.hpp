@@ -4,13 +4,14 @@
 #ifndef MOTURGATEWAY_COMMON_EXCEPTIONS_INITIALIZATIONEXCEPTION_HPP_
 #define MOTURGATEWAY_COMMON_EXCEPTIONS_INITIALIZATIONEXCEPTION_HPP_
 
-#include <exception>
+#include "IMoturException.hpp"
+
 #include <string>
 
 namespace common::exceptions
 {
 
-class InitializationException : public std::exception
+class InitializationException : public IMoturException
 {
 public:
     explicit InitializationException(const std::string& what);

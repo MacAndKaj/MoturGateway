@@ -9,6 +9,9 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
 
+#ifdef MOTUR_DEBUG
+#include <iostream>
+#endif
 
 namespace common::log::impl
 {
@@ -35,16 +38,25 @@ MainLoggerImpl::~MainLoggerImpl()
 
 void MainLoggerImpl::info(const std::string &str)
 {
+#ifdef MOTUR_DEBUG
+    std::cout << "[INFO] " << str << std::endl;
+#endif
     m_logger->info(str);
 }
 
 void MainLoggerImpl::warn(const std::string &str)
 {
+#ifdef MOTUR_DEBUG
+    std::cout << "[WARN] " << str << std::endl;
+#endif
     m_logger->warn(str);
 }
 
 void MainLoggerImpl::err(const std::string &str)
 {
+#ifdef MOTUR_DEBUG
+    std::cout << "[ERR] " << str << std::endl;
+#endif
     m_logger->error(str);
 }
 

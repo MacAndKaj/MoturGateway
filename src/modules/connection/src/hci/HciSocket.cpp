@@ -2,7 +2,7 @@
  * Copyright (C) 2022 MacAndKaj - All Rights Reserved
 */
 
-#include <connection/hci_async/HciEventsSocket.hpp>
+#include <connection/hci/HciSocket.hpp>
 
 #include <exceptions/InitializationException.hpp>
 
@@ -14,15 +14,16 @@
 #include <memory>
 #include <cstring>
 
-namespace connection::hci_async
+namespace connection::hci
 {
 
-HciEventsSocket::HciEventsSocket()
+HciSocket::HciSocket(common::log::ILogger& logger)
     : m_device_id(hci_get_route(NULL))
+    , m_logger(logger)
 {
     if (m_device_id < 0) 
     {
-        throw common::exceptions::InitializationException("[HciEventsSocket] Device ID incorrect.");
+        throw common::exceptions::InitializationException("[HciSocket] Device ID incorrect.");
     }
 
     int hci_ctrl_sock = socket(PF_BLUETOOTH, 
@@ -31,7 +32,7 @@ HciEventsSocket::HciEventsSocket()
     
     if (hci_ctrl_sock < 0)
     {
-        throw common::exceptions::InitializationException("[HciEventsSocket] Socket not created.");
+        throw common::exceptions::InitializationException("[HciSocket] Socket not created.");
     }
 
     sockaddr_hci addr;
@@ -42,16 +43,27 @@ HciEventsSocket::HciEventsSocket()
 
     if (bind(hci_ctrl_sock, (struct sockaddr *) &addr, sizeof(addr)) < 0) {
         close(hci_ctrl_sock);
-        throw common::exceptions::InitializationException("[HciEventsSocket] Bind failure.");
+        throw common::exceptions::InitializationException("[HciSocket] Bind failure.");
     }
     m_socket = hci_ctrl_sock;
 }
 
-HciEventsSocket::~HciEventsSocket()
+HciSocket::~HciSocket()
 {
     close(m_socket);
 }
 
+void HciSocket::applyEventsFilter(std::vector<defs::HciEventName> events)
+{
+    struct hci_filter filter;
+    hci_filter_clear(&filter);
 
+    hci_filter_set_ptype(HCI_EVENT_PKT,  &filter);
 
-} // namespace connection::hci_async
+    for (auto& e : events)
+    {
+        hci_filter_set_event(static_cast<int>(e), &filter);
+    }
+}
+
+} // namespace connection::hci

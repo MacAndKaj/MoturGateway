@@ -6,6 +6,7 @@ set(LIBNAME moturgateway_common_exceptions)
 
 add_library(${LIBNAME} STATIC
     # HEADERS
+    ${CMAKE_CURRENT_SOURCE_DIR}/IMoturException.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/InitializationException.hpp
 	
 

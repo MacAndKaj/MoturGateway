@@ -11,5 +11,5 @@ target_include_directories(App${PROJECT_NAME}
 )
 
 target_link_libraries(App${PROJECT_NAME}
-    ${PROJECT_NAME}_connection_module
+    PRIVATE moturgateway_connection_module
 )

@@ -1,23 +1,22 @@
 /*
  * Copyright (C) 2022 MacAndKaj - All Rights Reserved
 */
-#ifndef CONNECTION_HCI_ASYNC_SUBSCRIPTIONSSTORAGE_HPP
-#define CONNECTION_HCI_ASYNC_SUBSCRIPTIONSSTORAGE_HPP
+#ifndef CONNECTION_HCI_SUBSCRIPTIONSSTORAGE_HPP
+#define CONNECTION_HCI_SUBSCRIPTIONSSTORAGE_HPP
 
-#include <connection/hci_async/ISubscriptionsStorage.hpp>
+#include <connection/hci/ISubscriptionsStorage.hpp>
 
-#include <log/MainLogger.hpp>
-#include <connection/utils/IConnectionContext.hpp>
+#include <log/ILogger.hpp>
 
 #include <map>
 
-namespace connection::hci_async
+namespace connection::hci
 {
 
 class SubscriptionsStorage : public ISubscriptionsStorage
 {
 public:
-    explicit SubscriptionsStorage(utils::IConnectionContext& context);
+    explicit SubscriptionsStorage(common::log::ILogger& logger);
     virtual ~SubscriptionsStorage() = default;
 
     SubscriptionGuard subscribe(defs::HciEventName event_name, const Callback& callback);
@@ -35,9 +34,9 @@ protected:
 private:
     std::map<defs::HciEventName, int> m_counters_map;
     std::map<defs::HciEventName, std::vector<Subscription>> m_subscriptions_map;
-    common::log::MainLogger& m_logger;
+    common::log::ILogger& m_logger;
 };
 
-} // namespace connection::hci_async
+} // namespace connection::hci
 
-#endif // CONNECTION_HCI_ASYNC_SUBSCRIPTIONSSTORAGE_HPP
+#endif // CONNECTION_HCI_SUBSCRIPTIONSSTORAGE_HPP

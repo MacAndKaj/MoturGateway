@@ -17,7 +17,7 @@ void signal_handler(int sig)
 int main()
 {
     connection::ConnectionModule module_1;
-
+    module_1.activate();
     signal(SIGINT, signal_handler);
     app_is_running.wait(/*old=*/true);
     std::cout << "DONE "<< std::endl;

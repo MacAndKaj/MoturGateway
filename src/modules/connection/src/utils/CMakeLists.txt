@@ -17,7 +17,7 @@ add_library(${LIBNAME} STATIC ${FILES})
 
 target_include_directories(${LIBNAME}
     PRIVATE ${LIBRARY_HEADERS_DIR}
-    ${COMMON_HEADERS_DIR}
+    PRIVATE ${COMMON_HEADERS_DIR}
 )
 
 target_link_libraries(${LIBNAME}
