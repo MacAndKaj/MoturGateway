@@ -78,14 +78,10 @@ struct InquiryCompleteParameters
 
 struct InquiryResultParameters
 {
-    struct Response
-    {
-        BtDeviceAddress bd_addr;
-        std::uint8_t page_scan_repetition_mode;
-        std::uint32_t class_of_device;
-        std::uint16_t clock_offset;
-    };
-    std::vector<Response> responses;
+    BtDeviceAddress bd_addr;
+    std::uint8_t page_scan_repetition_mode;
+    std::uint32_t class_of_device;
+    std::uint16_t clock_offset;
 };
 
 struct ConnectionCompleteParameters

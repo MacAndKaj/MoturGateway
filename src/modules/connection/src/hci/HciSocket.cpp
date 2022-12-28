@@ -4,8 +4,12 @@
 
 #include <connection/hci/HciSocket.hpp>
 
+#include <connection/defs/HciEventParser.hpp>
 #include <exceptions/InitializationException.hpp>
+#include <exceptions/ItemNotRetrievedException.hpp>
+#include <exceptions/UnknownFailureException.hpp>
 
+#include <sys/poll.h>
 #include <sys/socket.h>
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
@@ -53,7 +57,37 @@ HciSocket::~HciSocket()
     close(m_socket);
 }
 
-void HciSocket::applyEventsFilter(std::vector<defs::HciEventName> events)
+defs::HciEvent HciSocket::pollEvent() const
+{
+    pollfd p;
+    p.fd = m_socket;
+    p.events = POLLIN;
+    int n = 0;
+    constexpr int timeout = 1;
+    constexpr int number_of_pollfds = 1;
+    if (poll(&p, number_of_pollfds, timeout) < 0)
+    {
+        throw common::exceptions::UnknownFailureException("Received errno: " + std::string(strerror(errno)));
+    }
+
+    if (!(p.revents & POLLIN))
+    {
+        throw common::exceptions::ItemNotRetrievedException("");
+    }
+
+    char buf[HCI_MAX_EVENT_SIZE];
+    if (read(m_socket, buf, sizeof(buf)) < 0)
+    {
+        throw common::exceptions::UnknownFailureException("Received errno: "
+                                                          + std::string(strerror(errno))
+                                                          + "(" + std::to_string(errno) + ")");
+    }
+
+    m_logger.info("[HciSocket] Received event.");
+    return defs::HciEventParser::getHciEvent(buf);
+}
+
+bool HciSocket::applyEventsFilter(std::vector<defs::HciEventName> events) const
 {
     struct hci_filter filter;
     hci_filter_clear(&filter);
@@ -64,6 +98,15 @@ void HciSocket::applyEventsFilter(std::vector<defs::HciEventName> events)
     {
         hci_filter_set_event(static_cast<int>(e), &filter);
     }
+
+    if (setsockopt(m_socket, SOL_HCI, HCI_FILTER, &filter, sizeof(filter)) < 0)
+    {
+        m_logger.err("Error when applying filter for socket!");
+        return false;
+    }
+
+    m_logger.info("[HciSocket] Filters applied successfully.");
+    return true;
 }
 
 } // namespace connection::hci

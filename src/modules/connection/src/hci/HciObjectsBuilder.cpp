@@ -9,9 +9,14 @@
 namespace connection::hci
 {
 
+HciObjectsBuilder::HciObjectsBuilder(common::log::ILogger &logger)
+    : m_logger(logger)
+{
+}
+
 std::unique_ptr<IHciSocket> HciObjectsBuilder::buildHciSocket() const
 {
-    return std::make_unique<HciSocket>();
+    return std::make_unique<HciSocket>(m_logger);
 }
 
 } // namespace connection::hci

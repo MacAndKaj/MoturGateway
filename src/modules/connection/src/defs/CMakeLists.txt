@@ -8,9 +8,11 @@ set(FILES
     # HEADERS
     ${LIBRARY_HEADERS_DIR}/connection/defs/BtDeviceAddress.hpp
     ${LIBRARY_HEADERS_DIR}/connection/defs/HciTypes.hpp
+    ${LIBRARY_HEADERS_DIR}/connection/defs/HciEventParser.hpp
 
     # SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/BtDeviceAddress.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/HciEventParser.cpp
 )
 
 add_library(${LIBNAME} STATIC ${FILES})

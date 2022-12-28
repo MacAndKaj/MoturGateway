@@ -34,4 +34,5 @@ target_link_libraries(${LIBNAME}
     PRIVATE ${BLUEZ_LIBRARIES}
     PRIVATE moturgateway_common_log
     PRIVATE moturgateway_common_exceptions
+    PRIVATE moturgateway_connection_module_defs
 )

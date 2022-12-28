@@ -18,7 +18,9 @@ public:
     explicit HciSocket(common::log::ILogger& logger);
     virtual ~HciSocket();
 
-    void applyEventsFilter(std::vector<defs::HciEventName> events);
+    defs::HciEvent pollEvent() const;
+
+    bool applyEventsFilter(std::vector<defs::HciEventName> events) const;
 
 private:
 	int m_device_id;

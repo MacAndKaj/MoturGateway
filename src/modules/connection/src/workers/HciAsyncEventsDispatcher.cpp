@@ -12,6 +12,7 @@
 
 #include <csignal>
 #include <iostream>
+#include <thread>
 
 namespace connection::workers
 {
@@ -24,8 +25,8 @@ void HciAsyncEventsDispatcher::run()
     logger.info("[HciAsyncEventsDispatcher] Configuring worker");
 
     {
-        context.setSubscriptionsStorage(std::make_unique<hci::SubscriptionsStorage>(context.getLogger()));
-        context.setHciObjectsBuilder(std::make_unique<hci::HciObjectsBuilder>());
+        context.setSubscriptionsStorage(std::make_unique<hci::SubscriptionsStorage>(logger));
+        context.setHciObjectsBuilder(std::make_unique<hci::HciObjectsBuilder>(logger));
     }
 
     try
@@ -33,26 +34,29 @@ void HciAsyncEventsDispatcher::run()
         hci::HciPoller poller(context);
         logger.info("[HciAsyncEventsDispatcher] Worker configured correctly. Enter main loop.");
         m_is_running = true;
+
+        constexpr std::chrono::milliseconds interval(1);
         while (m_is_running)
         {
             poller.work();
+            std::this_thread::sleep_for(interval); //TODO: find other way to decrease CPU usage
         }
     }
     catch (const common::exceptions::IMoturException& ex)
     {
-        context.getLogger().err("Motur exception occured during HciAsyncEventsDispatcher initialization");
-        context.getLogger().err("Exception: " + std::string(ex.what()));
+        context.getLogger().err("[HciAsyncEventsDispatcher] Motur exception occured in runtime.");
+        context.getLogger().err("[HciAsyncEventsDispatcher] " + std::string(ex.what()));
         forceStop();
     }
     catch (const std::exception& ex)
     {
-        context.getLogger().err("Exception occured during HciAsyncEventsDispatcher initialization");
-        context.getLogger().err("Exception: " + std::string(ex.what()));
+        context.getLogger().err("[HciAsyncEventsDispatcher] Unknown fatal exception occured in runtime.");
+        context.getLogger().err("[HciAsyncEventsDispatcher] " + std::string(ex.what()));
         forceStop();
     }
     catch (...)
     {
-        context.getLogger().err("Unknown exception occured");
+        context.getLogger().err("[HciAsyncEventsDispatcher] Unknown exception occured");
         forceStop();
     }
 }

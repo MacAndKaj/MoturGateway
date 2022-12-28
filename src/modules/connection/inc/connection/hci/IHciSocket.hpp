@@ -15,7 +15,8 @@ class IHciSocket
 {
 public:
     virtual ~IHciSocket() = default;
-    virtual void applyEventsFilter(std::vector<defs::HciEventName> events) = 0;
+    virtual defs::HciEvent pollEvent() const = 0;
+    virtual bool applyEventsFilter(std::vector<defs::HciEventName> events) const = 0;
 };
 
 } // namespace connection::hci
