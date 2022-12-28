@@ -17,6 +17,13 @@
 namespace connection::workers
 {
 
+HciAsyncEventsDispatcher::HciAsyncEventsDispatcher(std::shared_ptr<hci::ISubscriptionsStorage> subscriptions_storage,
+    std::shared_ptr<hci::IHciObjectsBuilder> hci_objects_builder)
+    : m_subscriptions_storage(std::move(subscriptions_storage))
+    , m_hci_objects_builder(std::move(hci_objects_builder))
+{
+}
+
 void HciAsyncEventsDispatcher::run()
 {
     utils::ConnectionContext context;
@@ -25,8 +32,8 @@ void HciAsyncEventsDispatcher::run()
     logger.info("[HciAsyncEventsDispatcher] Configuring worker");
 
     {
-        context.setSubscriptionsStorage(std::make_unique<hci::SubscriptionsStorage>(logger));
-        context.setHciObjectsBuilder(std::make_unique<hci::HciObjectsBuilder>(logger));
+        context.setSubscriptionsStorage(m_subscriptions_storage);
+        context.setHciObjectsBuilder(m_hci_objects_builder);
     }
 
     try

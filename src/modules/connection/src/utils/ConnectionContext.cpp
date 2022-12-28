@@ -16,7 +16,7 @@ common::log::ILogger& ConnectionContext::getLogger() const
     return *m_main_logger;
 }
 
-void ConnectionContext::setSubscriptionsStorage(std::unique_ptr<hci::ISubscriptionsStorage> subscriptions_storage)
+void ConnectionContext::setSubscriptionsStorage(std::shared_ptr<hci::ISubscriptionsStorage> subscriptions_storage)
 {
     m_subscriptions_storage = std::move(subscriptions_storage);
 }
@@ -26,7 +26,7 @@ hci::ISubscriptionsStorage& ConnectionContext::getSubscriptionsStorage() const
     return *m_subscriptions_storage;
 }
 
-void ConnectionContext::setHciObjectsBuilder(std::unique_ptr<hci::IHciObjectsBuilder> hci_objects_builder)
+void ConnectionContext::setHciObjectsBuilder(std::shared_ptr<hci::IHciObjectsBuilder> hci_objects_builder)
 {
     m_hci_objects_builder = std::move(hci_objects_builder);
 }

@@ -25,7 +25,6 @@ void HciPoller::work()
     try
     {
         defs::HciEvent ev = m_events_socket->pollEvent();
-        m_logger.info("Received event: " + defs::hci_events_names.at(ev.name));
         m_subscriptions_storage.notifyAll(ev);
     }
     catch (const common::exceptions::ItemNotRetrievedException&)

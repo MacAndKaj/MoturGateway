@@ -19,16 +19,16 @@ public:
     void setLogger(std::unique_ptr<common::log::ILogger> logger) override;
     common::log::ILogger& getLogger() const override;
 
-    void setSubscriptionsStorage(std::unique_ptr<hci::ISubscriptionsStorage> subscriptions_storage) override;
+    void setSubscriptionsStorage(std::shared_ptr<hci::ISubscriptionsStorage> subscriptions_storage) override;
     hci::ISubscriptionsStorage& getSubscriptionsStorage() const override;
 
-    void setHciObjectsBuilder(std::unique_ptr<hci::IHciObjectsBuilder> hci_objects_builder) override;
+    void setHciObjectsBuilder(std::shared_ptr<hci::IHciObjectsBuilder> hci_objects_builder) override;
     hci::IHciObjectsBuilder& getHciObjectsBuilder() const override;
 
 private:
     std::unique_ptr<common::log::ILogger> m_main_logger;
-    std::unique_ptr<hci::ISubscriptionsStorage> m_subscriptions_storage;
-    std::unique_ptr<hci::IHciObjectsBuilder> m_hci_objects_builder;
+    std::shared_ptr<hci::ISubscriptionsStorage> m_subscriptions_storage;
+    std::shared_ptr<hci::IHciObjectsBuilder> m_hci_objects_builder;
 };
 
 

@@ -22,10 +22,10 @@ public:
     virtual void setLogger(std::unique_ptr<common::log::ILogger> logger) = 0;
     virtual common::log::ILogger& getLogger() const = 0;
 
-    virtual void setSubscriptionsStorage(std::unique_ptr<hci::ISubscriptionsStorage> subscriptions_storage) = 0;
+    virtual void setSubscriptionsStorage(std::shared_ptr<hci::ISubscriptionsStorage> subscriptions_storage) = 0;
     virtual hci::ISubscriptionsStorage& getSubscriptionsStorage() const = 0;
 
-    virtual void setHciObjectsBuilder(std::unique_ptr<hci::IHciObjectsBuilder> hci_objects_builder) = 0;
+    virtual void setHciObjectsBuilder(std::shared_ptr<hci::IHciObjectsBuilder> hci_objects_builder) = 0;
     virtual hci::IHciObjectsBuilder& getHciObjectsBuilder() const = 0;
 };
 
