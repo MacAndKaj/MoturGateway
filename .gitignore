@@ -76,3 +76,4 @@ Thumbs.db
 # Misc
 build/
 cmake-build*
+build*/
