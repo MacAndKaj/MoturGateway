@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake-modules)
 
-find_package(Boost 1.79 REQUIRED system)
+find_package(Boost 1.75 REQUIRED system)
 if (NOT Boost_FOUND)
     message(ERROR "Boost not found!")
 endif()

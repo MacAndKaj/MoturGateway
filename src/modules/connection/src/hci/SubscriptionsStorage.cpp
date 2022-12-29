@@ -23,7 +23,9 @@ SubscriptionGuard SubscriptionsStorage::subscribe(defs::HciEventName event_name,
 
     int id = counters_iter->second++;
 
-    m_subscriptions_map[event_name].emplace_back(callback);
+    m_subscriptions_map[event_name].emplace_back<SubscriptionsStorage::Subscription>({
+        callback, static_cast<unsigned int>(id)
+    });
 
     m_logger.info("[SubscriptionsStorage] New subscription created for event " + defs::hci_events_names.at(event_name)
                   + " with ID: " + std::to_string(id));

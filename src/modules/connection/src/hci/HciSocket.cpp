@@ -15,8 +15,8 @@
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 
-#include <memory>
 #include <cstring>
+#include <unistd.h>
 
 namespace connection::hci
 {
@@ -59,7 +59,7 @@ HciSocket::~HciSocket()
 
 defs::HciEvent HciSocket::pollEvent() const
 {
-    pollfd p;
+    pollfd p{};
     p.fd = m_socket;
     p.events = POLLIN;
     int n = 0;
@@ -89,7 +89,7 @@ defs::HciEvent HciSocket::pollEvent() const
 
 bool HciSocket::applyEventsFilter(std::vector<defs::HciEventName> events) const
 {
-    struct hci_filter filter;
+    struct hci_filter filter{};
     hci_filter_clear(&filter);
 
     hci_filter_set_ptype(HCI_EVENT_PKT,  &filter);
