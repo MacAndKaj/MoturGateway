@@ -25,6 +25,7 @@ target_include_directories(${LIBNAME}
 )
 
 target_link_libraries(${LIBNAME}
+    PRIVATE moturgateway_connection_module_conn_ctrl
     PRIVATE moturgateway_connection_module_hci
     PRIVATE moturgateway_connection_module_utils
 )

@@ -11,7 +11,9 @@ namespace connection::conn_ctrl
 ConnectionControl::ConnectionControl(utils::IConnectionContext& context)
     : m_subscriptions_storage(context.getSubscriptionsStorage())
     , m_logger(context.getLogger())
+    , m_processing_queue(context)
 {
+    setup();
 }
 
 void ConnectionControl::setup()
@@ -24,10 +26,11 @@ void ConnectionControl::setup()
         defs::HciEventName::InquiryResult,
     })
     {
-        m_subscriptions_storage.subscribe(
-            ev_name,
-            [this](auto&& event) { callback(std::forward<decltype(event)>(event));}
-        );
+        m_sub_guards.push_back(
+            m_subscriptions_storage.subscribe(
+                ev_name,
+                [this](auto&& event) { callback(std::forward<decltype(event)>(event));}
+            ));
     }
 }
 

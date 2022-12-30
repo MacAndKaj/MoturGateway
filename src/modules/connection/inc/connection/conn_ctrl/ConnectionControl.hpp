@@ -18,14 +18,15 @@ public:
     ConnectionControl(utils::IConnectionContext& context);
 
     virtual ~ConnectionControl() = default;
-    void setup();
     void process();
 
 protected:
+    void setup();
     void callback(const defs::HciEvent& ev);
 
 private:
     hci::ISubscriptionsStorage& m_subscriptions_storage;
+    std::vector<hci::SubscriptionGuard> m_sub_guards;
     common::log::ILogger& m_logger;
     ProcessingQueue m_processing_queue;
 };

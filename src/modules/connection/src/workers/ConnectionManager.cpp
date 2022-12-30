@@ -3,6 +3,7 @@
 */
 #include <connection/workers/ConnectionManager.hpp>
 
+#include <connection/conn_ctrl/ConnectionControl.hpp>
 #include <connection/utils/ConnectionContext.hpp>
 #include <exceptions/IMoturException.hpp>
 #include <log/MainLogger.hpp>
@@ -34,6 +35,16 @@ void ConnectionManager::run()
 
     try
     {
+        conn_ctrl::ConnectionControl connection_control(context);
+        logger.info("[ConnectionManager] Worker configured correctly. Enter main loop.");
+
+        m_is_running = true;
+        constexpr std::chrono::milliseconds interval(1);
+        while (m_is_running)
+        {
+            connection_control.process();
+            std::this_thread::sleep_for(interval); //TODO: find other way to decrease CPU usage
+        }
     }
     catch (const common::exceptions::IMoturException& ex)
     {

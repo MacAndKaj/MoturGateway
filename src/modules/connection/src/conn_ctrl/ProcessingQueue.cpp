@@ -14,6 +14,11 @@ ProcessingQueue::ProcessingQueue(utils::IConnectionContext& context)
 
 void ProcessingQueue::evaluate()
 {
+    if (m_jobs_queue.empty())
+    {
+        return;
+    }
+
     std::unique_ptr<Job> job_to_run;
 
     {

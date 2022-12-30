@@ -4,7 +4,6 @@
 
 #include <connection/conn_ctrl/HandleRecipes.hpp>
 
-#include <connection/conn_ctrl/JobBuilder.hpp>
 #include <connection/conn_ctrl/hci_ev_handlers/ConnectionCompleteHandler.hpp>
 
 
