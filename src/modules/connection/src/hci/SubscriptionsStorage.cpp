@@ -13,7 +13,7 @@ SubscriptionsStorage::SubscriptionsStorage(common::log::ILogger& logger)
     m_logger.info("[SubscriptionsStorage] Creating subscriptions storage");
 }
 
-SubscriptionGuard SubscriptionsStorage::subscribe(defs::HciEventName event_name, const Callback& callback)
+std::shared_ptr<SubscriptionGuard> SubscriptionsStorage::subscribe(defs::HciEventName event_name, const Callback& callback)
 {
     auto counters_iter = m_counters_map.find(event_name);
     if (counters_iter == m_counters_map.end())
@@ -29,9 +29,9 @@ SubscriptionGuard SubscriptionsStorage::subscribe(defs::HciEventName event_name,
 
     m_logger.info("[SubscriptionsStorage] New subscription created for event " + defs::hci_events_names.at(event_name)
                   + " with ID: " + std::to_string(id));
-    return {[event_name, id, this](){
+    return std::make_shared<SubscriptionGuard>([event_name, id, this](){
         this->removeSubscription(event_name, id);
-    }};
+    });
 }
 
 void SubscriptionsStorage::removeSubscription(defs::HciEventName event_name, int id)
@@ -52,7 +52,8 @@ void SubscriptionsStorage::removeSubscription(defs::HciEventName event_name, int
     }
 
     subscriptions_iter->second.erase(found_iter);
-    m_logger.info("[SubscriptionsStorage] Subscription with ID: " + std::to_string(id) + " was removed");
+    m_logger.info("[SubscriptionsStorage] Subscription with ID: "+ defs::hci_events_names.at(event_name) + "/"
+        + std::to_string(id) + " was removed");
 }
 
 void SubscriptionsStorage::notifyAll(const defs::HciEvent& event) const

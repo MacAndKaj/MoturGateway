@@ -23,6 +23,7 @@ int main()
 
     while (app_is_running)
     {
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
     return EXIT_SUCCESS;
 }

@@ -10,6 +10,7 @@
 
 #include <csignal>
 #include <thread>
+#include <iostream>
 
 namespace connection::workers
 {
@@ -19,6 +20,11 @@ ConnectionManager::ConnectionManager(std::shared_ptr<hci::ISubscriptionsStorage>
     : m_subscriptions_storage(std::move(subscriptions_storage))
     , m_hci_objects_builder(std::move(hci_objects_builder))
 {
+}
+
+ConnectionManager::~ConnectionManager()
+{
+    m_is_running = false;
 }
 
 void ConnectionManager::run()

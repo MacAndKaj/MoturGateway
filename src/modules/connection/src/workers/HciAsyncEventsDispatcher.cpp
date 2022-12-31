@@ -24,6 +24,11 @@ HciAsyncEventsDispatcher::HciAsyncEventsDispatcher(std::shared_ptr<hci::ISubscri
 {
 }
 
+HciAsyncEventsDispatcher::~HciAsyncEventsDispatcher()
+{
+    m_is_running = false;
+}
+
 void HciAsyncEventsDispatcher::run()
 {
     utils::ConnectionContext context;

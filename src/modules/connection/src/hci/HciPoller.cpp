@@ -44,7 +44,7 @@ void HciPoller::setup()
 
     auto it = events.begin();
     std::stringstream ss;
-    ss << "[HciPoller] Subscribing for: " << defs::hci_events_names.at(*it);
+    ss << "[HciPoller] Starting observation for events: " << defs::hci_events_names.at(*it);
 
     for (++it; it != events.end(); ++it)
     {

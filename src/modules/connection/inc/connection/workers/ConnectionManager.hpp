@@ -23,7 +23,7 @@ public:
     ConnectionManager(std::shared_ptr<hci::ISubscriptionsStorage> subscriptions_storage,
                       std::shared_ptr<hci::IHciObjectsBuilder> hci_objects_builder);
     ConnectionManager() = delete;
-    virtual ~ConnectionManager() = default;
+    virtual ~ConnectionManager();
 
     void run() override;
 

@@ -53,10 +53,10 @@ enum class HciEventName
 };
 
 const std::map<HciEventName, std::string> hci_events_names = {
-    {HciEventName::InquiryComplete,     "InquiryComplete"},
-    {HciEventName::InquiryResult,       "InquiryResult"},
-    {HciEventName::ConnectionComplete,  "ConnectionComplete"},
-    {HciEventName::ConnectionRequest,   "ConnectionRequest"},
+    {HciEventName::InquiryComplete,    "InquiryComplete"},
+    {HciEventName::InquiryResult,      "InquiryResult"},
+    {HciEventName::ConnectionComplete, "ConnectionComplete"},
+    {HciEventName::ConnectionRequest,  "ConnectionRequest"},
 };
 
 enum class Status
@@ -68,6 +68,16 @@ enum class Status
     PageTimout,
     AuthenticationFailur
     // TODO: others
+};
+
+
+const std::map<Status, std::string> statuses_names = {
+    {Status::NoError,                     "NoError"},
+    {Status::UnknownHciCommand,           "UnknownHciCommand"},
+    {Status::UnknownConnectionIdentifier, "UnknownConnectionIdentifier"},
+    {Status::HardwareFailure,             "HardwareFailure"},
+    {Status::PageTimout,                  "PageTimout"},
+    {Status::AuthenticationFailur,        "AuthenticationFailur"},
 };
 
 struct InquiryCompleteParameters

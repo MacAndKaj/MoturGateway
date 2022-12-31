@@ -31,6 +31,7 @@ void ProcessingQueue::evaluate()
     {
         m_logger.info("[ProcessingQueue] Starting next job");
         job_to_run->run();
+        m_logger.info("[ProcessingQueue] Job done");
     }
 }
 

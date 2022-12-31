@@ -11,10 +11,15 @@
 
 #ifdef MOTUR_DEBUG
 #include <iostream>
+#include <mutex>
 #endif
 
 namespace common::log::impl
 {
+#ifdef MOTUR_DEBUG
+std::mutex log_mutex;
+#endif
+
 
 MainLoggerImpl::MainLoggerImpl(const std::string& component_name)
     : m_logger_name(std::string(m_logger_name_prefix) + "/" + component_name)
@@ -39,6 +44,7 @@ MainLoggerImpl::~MainLoggerImpl()
 void MainLoggerImpl::info(const std::string &str)
 {
 #ifdef MOTUR_DEBUG
+    std::lock_guard<std::mutex> lock(log_mutex);
     std::cout << "[INFO] " << str << std::endl;
 #endif
     m_logger->info(str);
@@ -47,6 +53,7 @@ void MainLoggerImpl::info(const std::string &str)
 void MainLoggerImpl::warn(const std::string &str)
 {
 #ifdef MOTUR_DEBUG
+    std::lock_guard<std::mutex> lock(log_mutex);
     std::cout << "[WARN] " << str << std::endl;
 #endif
     m_logger->warn(str);
@@ -55,6 +62,7 @@ void MainLoggerImpl::warn(const std::string &str)
 void MainLoggerImpl::err(const std::string &str)
 {
 #ifdef MOTUR_DEBUG
+    std::lock_guard<std::mutex> lock(log_mutex);
     std::cout << "[ERR] " << str << std::endl;
 #endif
     m_logger->error(str);

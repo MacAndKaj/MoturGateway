@@ -7,7 +7,8 @@
 
 #include <log/ILogger.hpp>
 #include <connection/hci/ISubscriptionsStorage.hpp>
-#include <connection/conn_ctrl//ProcessingQueue.hpp>
+#include <connection/conn_ctrl/ProcessingQueue.hpp>
+#include <connection/conn_ctrl/HandleRecipes.hpp>
 
 namespace connection::conn_ctrl
 {
@@ -26,9 +27,10 @@ protected:
 
 private:
     hci::ISubscriptionsStorage& m_subscriptions_storage;
-    std::vector<hci::SubscriptionGuard> m_sub_guards;
+    std::vector<std::shared_ptr<hci::SubscriptionGuard>> m_sub_guards;
     common::log::ILogger& m_logger;
     ProcessingQueue m_processing_queue;
+    HandleRecipes m_recipes;
 };
 
 

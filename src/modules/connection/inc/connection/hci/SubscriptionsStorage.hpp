@@ -19,7 +19,7 @@ public:
     explicit SubscriptionsStorage(common::log::ILogger& logger);
     virtual ~SubscriptionsStorage() = default;
 
-    SubscriptionGuard subscribe(defs::HciEventName event_name, const Callback& callback);
+    std::shared_ptr<SubscriptionGuard> subscribe(defs::HciEventName event_name, const Callback& callback);
     void notifyAll(const defs::HciEvent& event) const;
 
 protected:

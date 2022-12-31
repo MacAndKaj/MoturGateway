@@ -23,30 +23,25 @@ HciEvent HciEventParser::getHciEvent(const char* data)
             {
                 return convert(*ptr);
             }
-            break;
         case EVT_INQUIRY_RESULT:
             {
                 auto* ev = static_cast<inquiry_info*>((void*)ptr);
                 return convert(*ev);
             }
-            break;
         case EVT_CONN_COMPLETE:
             {
                 auto* ev = static_cast<evt_conn_complete*>((void*)ptr);
                 return convert(*ev);
             }
-            break;
         case EVT_CONN_REQUEST:
             {
                 auto* ev = static_cast<evt_conn_request*>((void*)ptr);
                 return convert(*ev);
             }
-            break;
         default:
             {
                 throw common::exceptions::UnknownFailureException("Unknown event received: " + std::to_string(hdr->evt));
             }
-            break;
     }
 }
 

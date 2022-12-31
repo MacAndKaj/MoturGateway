@@ -9,6 +9,7 @@
 #include <connection/hci/SubscriptionGuard.hpp>
 
 #include <functional>
+#include <memory>
 
 namespace connection::hci
 {
@@ -19,7 +20,7 @@ public:
     using Callback = std::function<void(const defs::HciEvent&)>;
 
     virtual ~ISubscriptionsStorage() = default;
-    virtual SubscriptionGuard subscribe(defs::HciEventName event_name, const Callback& callback) = 0;
+    virtual std::shared_ptr<SubscriptionGuard> subscribe(defs::HciEventName event_name, const Callback& callback) = 0;
     virtual void notifyAll(const defs::HciEvent& event) const = 0;
 };
 

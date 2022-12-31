@@ -12,6 +12,7 @@ ConnectionControl::ConnectionControl(utils::IConnectionContext& context)
     : m_subscriptions_storage(context.getSubscriptionsStorage())
     , m_logger(context.getLogger())
     , m_processing_queue(context)
+    , m_recipes(context)
 {
     setup();
 }
@@ -26,7 +27,7 @@ void ConnectionControl::setup()
         defs::HciEventName::InquiryResult,
     })
     {
-        m_sub_guards.push_back(
+        m_sub_guards.emplace_back(
             m_subscriptions_storage.subscribe(
                 ev_name,
                 [this](auto&& event) { callback(std::forward<decltype(event)>(event));}
@@ -41,8 +42,7 @@ void ConnectionControl::process()
 
 void ConnectionControl::callback(const defs::HciEvent& ev)
 {
-
-    auto handler = HandleRecipes::get(ev);
+    auto handler = m_recipes.get(ev);
     m_processing_queue.addJob(std::make_unique<Job>(handler));
 }
 
