@@ -7,6 +7,7 @@ set(LIBNAME moturgateway_connection_module_conn_ctrl)
 set(FILES
     # HEADERS
     ${LIBRARY_HEADERS_DIR}/connection/conn_ctrl/hci_ev_handlers/ConnectionCompleteHandler.hpp
+    ${LIBRARY_HEADERS_DIR}/connection/conn_ctrl/hci_ev_handlers/ConnectionRequestHandler.hpp
     ${LIBRARY_HEADERS_DIR}/connection/conn_ctrl/hci_ev_handlers/InquiryCompleteHandler.hpp
 
     ${LIBRARY_HEADERS_DIR}/connection/conn_ctrl/ConnectionControl.hpp
@@ -17,6 +18,7 @@ set(FILES
 
     # SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/hci_ev_handlers/ConnectionCompleteHandler.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/hci_ev_handlers/ConnectionRequestHandler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/hci_ev_handlers/InquiryCompleteHandler.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/ConnectionControl.cpp
