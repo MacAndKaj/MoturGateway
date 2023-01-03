@@ -29,6 +29,28 @@ std::function<void()> HandleRecipes::get(const defs::HciEvent& ev)
             return hci_event_handlers::ConnectionRequestHandler(m_context, ev);
         case defs::HciEventName::InquiryResult:
             break;
+        case defs::HciEventName::DisconnectionComplete:
+            break;
+        case defs::HciEventName::AuthenticationComplete:
+            break;
+        case defs::HciEventName::RemoteNameReqComplete:
+            break;
+        case defs::HciEventName::EncryptionChange:
+            break;
+        case defs::HciEventName::ChangeConnectionLinkKeyComplete:
+            break;
+        case defs::HciEventName::LinkKeyTypeChanged:
+            break;
+        case defs::HciEventName::ReadRemoteFeaturesComplete:
+            break;
+        case defs::HciEventName::ReadRemoteVersionComplete:
+            break;
+        case defs::HciEventName::QosSetupComplete:
+            break;
+        case defs::HciEventName::CommandComplete:
+            break;
+        case defs::HciEventName::CommandStatus:
+            break;
     }
     return {};
 }

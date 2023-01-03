@@ -23,17 +23,17 @@ enum class HciEventName
     InquiryResult = EVT_INQUIRY_RESULT,                                     // 0x02
     ConnectionComplete = EVT_CONN_COMPLETE,                                 // 0x03
     ConnectionRequest = EVT_CONN_REQUEST,                                   // 0x04
-//    DisconnectionComplete = EVT_DISCONN_COMPLETE,                           // 0x05
-//    AuthenticationComplete = EVT_AUTH_COMPLETE,                             // 0x06
-//    RemoteNameReqComplete = EVT_REMOTE_NAME_REQ_COMPLETE,                   // 0x07
-//    EncryptionChange = EVT_ENCRYPT_CHANGE,                                  // 0x08
-//    ChangeConnectionLinkKeyComplete = EVT_CHANGE_CONN_LINK_KEY_COMPLETE,    // 0x09
-//    LinkKeyTypeChanged = EVT_MASTER_LINK_KEY_COMPLETE,                      // 0x0A
-//    ReadRemoteFeaturesComplete = EVT_READ_REMOTE_FEATURES_COMPLETE,         // 0x0B
-//    ReadRemoteVersionComplete = EVT_READ_REMOTE_VERSION_COMPLETE,           // 0x0C
-//    QosSetupComplete = EVT_QOS_SETUP_COMPLETE,                              // 0x0D
-//    CommandComplete = EVT_CMD_COMPLETE,                                     // 0x0E
-//    CommandStatus = EVT_CMD_STATUS,                                         // 0x0F
+    DisconnectionComplete = EVT_DISCONN_COMPLETE,                           // 0x05
+    AuthenticationComplete = EVT_AUTH_COMPLETE,                             // 0x06
+    RemoteNameReqComplete = EVT_REMOTE_NAME_REQ_COMPLETE,                   // 0x07
+    EncryptionChange = EVT_ENCRYPT_CHANGE,                                  // 0x08
+    ChangeConnectionLinkKeyComplete = EVT_CHANGE_CONN_LINK_KEY_COMPLETE,    // 0x09
+    LinkKeyTypeChanged = EVT_MASTER_LINK_KEY_COMPLETE,                      // 0x0A
+    ReadRemoteFeaturesComplete = EVT_READ_REMOTE_FEATURES_COMPLETE,         // 0x0B
+    ReadRemoteVersionComplete = EVT_READ_REMOTE_VERSION_COMPLETE,           // 0x0C
+    QosSetupComplete = EVT_QOS_SETUP_COMPLETE,                              // 0x0D
+    CommandComplete = EVT_CMD_COMPLETE,                                     // 0x0E
+    CommandStatus = EVT_CMD_STATUS,                                         // 0x0F
 //    EVT_HARDWARE_ERROR
 //    EVT_FLUSH_OCCURRED
 //    EVT_ROLE_CHANGE

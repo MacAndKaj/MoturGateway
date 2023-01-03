@@ -6,18 +6,20 @@ set(LIBNAME moturgateway_connection_module_hci)
 
 set(FILES
     # HEADERS
-    ${LIBRARY_HEADERS_DIR}/connection/hci/HciSocket.hpp
     ${LIBRARY_HEADERS_DIR}/connection/hci/HciObjectsBuilder.hpp
     ${LIBRARY_HEADERS_DIR}/connection/hci/HciPoller.hpp
+    ${LIBRARY_HEADERS_DIR}/connection/hci/HciSocket.hpp
     ${LIBRARY_HEADERS_DIR}/connection/hci/IHciSocket.hpp
     ${LIBRARY_HEADERS_DIR}/connection/hci/ISubscriptionsStorage.hpp
+    ${LIBRARY_HEADERS_DIR}/connection/hci/HciRequestExecutor.hpp
     ${LIBRARY_HEADERS_DIR}/connection/hci/SubscriptionGuard.hpp
     ${LIBRARY_HEADERS_DIR}/connection/hci/SubscriptionsStorage.hpp
 
     # SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/HciSocket.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/HciObjectsBuilder.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/HciPoller.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/HciRequestExecutor.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/HciSocket.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SubscriptionGuard.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SubscriptionsStorage.cpp
 )
