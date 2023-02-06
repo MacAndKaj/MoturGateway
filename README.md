@@ -1,8 +1,12 @@
 # MoturGateway
-Project of gateway application running on Raspberry Pi. It is application responsible for communication with user interface on remote machine.
+Project of gateway application running on Raspberry Pi. 
+
+MoturGateway is Bluetooth connection controller application designed for managing connection between Motur Project 
+instances (Motur and remote controller).
 
 # Dependencies
 
-- Boost
+- BlueZ
+- Boost 
 - spdlog
 

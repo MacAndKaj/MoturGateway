@@ -5,8 +5,6 @@
 
 #include <exceptions/ItemNotRetrievedException.hpp>
 
-#include <sys/socket.h>
-
 #include <sstream>
 
 namespace connection::hci

@@ -21,8 +21,11 @@ class ConnectionModule
 {
 public:
     ConnectionModule();
-
+    ~ConnectionModule();
     void activate();
+
+protected:
+    void work();
 
 private:
     const std::string M_WORKER_LOGGER_NAME{"CONNECTION"};

@@ -24,11 +24,6 @@ HciAsyncEventsDispatcher::HciAsyncEventsDispatcher(std::shared_ptr<hci::ISubscri
 {
 }
 
-HciAsyncEventsDispatcher::~HciAsyncEventsDispatcher()
-{
-    m_is_running = false;
-}
-
 void HciAsyncEventsDispatcher::run()
 {
     utils::ConnectionContext context;
@@ -76,6 +71,11 @@ void HciAsyncEventsDispatcher::run()
 void HciAsyncEventsDispatcher::forceStop()
 {
     std::raise(SIGINT);
+}
+
+void HciAsyncEventsDispatcher::stop()
+{
+    m_is_running = false;
 }
 
 } // namespace connection::workers

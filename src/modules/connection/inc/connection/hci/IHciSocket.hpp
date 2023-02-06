@@ -4,7 +4,7 @@
 #ifndef CONNECTION_HCI_IHCISOCKET_HPP_
 #define CONNECTION_HCI_IHCISOCKET_HPP_
 
-#include <connection/defs/HciTypes.hpp>
+#include <connection/defs/HciEvent.hpp>
 
 #include <vector>
 

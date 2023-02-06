@@ -19,7 +19,7 @@ std::string BtDeviceAddress::toString() const
     {
         return {};
     }
-    return std::string(ba);
+    return {ba};
 }
 
 bdaddr_t BtDeviceAddress::getRaw() const

@@ -36,5 +36,25 @@ hci::IHciObjectsBuilder &ConnectionContext::getHciObjectsBuilder() const
     return *m_hci_objects_builder;
 }
 
+void ConnectionContext::setHciCommandsConverter(std::unique_ptr<defs::IHciCommandsConverter> hci_commands_converter)
+{
+    m_hci_commands_converter = std::move(hci_commands_converter);
+}
+
+defs::IHciCommandsConverter& ConnectionContext::getHciCommandsConverter() const
+{
+    return *m_hci_commands_converter;
+}
+
+void ConnectionContext::setHciReturnParametersConverter(std::unique_ptr<defs::IHciReturnParametersConverter> converter)
+{
+    m_hci_return_parameters_converter = std::move(converter);
+}
+
+defs::IHciReturnParametersConverter& ConnectionContext::getHciReturnParametersConverter() const
+{
+    return *m_hci_return_parameters_converter;
+}
+
 
 } // namespace connection::utils

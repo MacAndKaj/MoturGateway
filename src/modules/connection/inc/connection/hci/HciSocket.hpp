@@ -5,6 +5,7 @@
 #ifndef CONNECTION_HCI_HCIEVENTSSOCKET_HPP_
 #define CONNECTION_HCI_HCIEVENTSSOCKET_HPP_
 
+#include <connection/defs/HciCommand.hpp>
 #include <connection/hci/IHciSocket.hpp>
 
 #include <log/ILogger.hpp>
@@ -18,9 +19,10 @@ public:
     explicit HciSocket(common::log::ILogger& logger);
     virtual ~HciSocket();
 
-    defs::HciEvent pollEvent() const;
+    defs::HciEvent pollEvent() const override;
+    void execute(defs::HciCommand& cmd);
 
-    bool applyEventsFilter(std::vector<defs::HciEventName> events) const;
+    bool applyEventsFilter(std::vector<defs::HciEventName> events) const override;
 
 private:
 	int m_device_id;

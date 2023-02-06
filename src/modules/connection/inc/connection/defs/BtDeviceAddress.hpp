@@ -16,16 +16,16 @@ class BtDeviceAddress
 {
 public:
     explicit BtDeviceAddress(const bdaddr_t& addr);
+
     ~BtDeviceAddress() = default;
 
     std::string toString() const;
     bdaddr_t getRaw() const;
 
-protected:
     BtDeviceAddress() = delete;
 
 private:
-    const bdaddr_t m_addr;
+    bdaddr_t m_addr;
 };
 
 

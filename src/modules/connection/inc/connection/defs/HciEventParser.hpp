@@ -5,7 +5,7 @@
 #ifndef CONNECTION_DEFS_HCIEVENTPARSER_HPP_
 #define CONNECTION_DEFS_HCIEVENTPARSER_HPP_
 
-#include <connection/defs/HciTypes.hpp>
+#include <connection/defs/HciEvent.hpp>
 
 #include <string>
 

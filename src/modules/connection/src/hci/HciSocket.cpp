@@ -17,6 +17,7 @@
 
 #include <cstring>
 #include <unistd.h>
+#include <memory>
 
 namespace connection::hci
 {
@@ -39,7 +40,7 @@ HciSocket::HciSocket(common::log::ILogger& logger)
         throw common::exceptions::InitializationException("[HciSocket] Socket not created.");
     }
 
-    sockaddr_hci addr;
+    sockaddr_hci addr{};
     std::memset(&addr, 0, sizeof(addr));
     addr.hci_family = AF_BLUETOOTH;
     addr.hci_dev = m_device_id;
@@ -67,7 +68,7 @@ defs::HciEvent HciSocket::pollEvent() const
     constexpr int number_of_pollfds = 1;
     if (poll(&p, number_of_pollfds, timeout) < 0)
     {
-        throw common::exceptions::UnknownFailureException("Received errno: " + std::string(strerror(errno)));
+        throw common::exceptions::UnknownFailureException("[HciSocket] Received errno: " + std::string(strerror(errno)));
     }
 
     if (!(p.revents & POLLIN))
@@ -78,7 +79,7 @@ defs::HciEvent HciSocket::pollEvent() const
     char buf[HCI_MAX_EVENT_SIZE];
     if (read(m_socket, buf, sizeof(buf)) < 0)
     {
-        throw common::exceptions::UnknownFailureException("Received errno: "
+        throw common::exceptions::UnknownFailureException("[HciSocket] Received errno: "
                                                           + std::string(strerror(errno))
                                                           + "(" + std::to_string(errno) + ")");
     }
@@ -101,12 +102,28 @@ bool HciSocket::applyEventsFilter(std::vector<defs::HciEventName> events) const
 
     if (setsockopt(m_socket, SOL_HCI, HCI_FILTER, &filter, sizeof(filter)) < 0)
     {
-        m_logger.err("Error when applying filter for socket!");
+        m_logger.err("[HciSocket] Error when applying filter for socket!");
         return false;
     }
 
     m_logger.info("[HciSocket] Filters applied successfully.");
     return true;
+}
+
+void HciSocket::execute(defs::HciCommand& cmd)
+{
+    std::shared_ptr<hci_request> req = cmd.buildRequest();
+
+    constexpr int timeout = 10; // TODO: change to something that could make sense
+    if (hci_send_req(m_socket, req.get(), timeout) < 0)
+    {
+        throw common::exceptions::UnknownFailureException("[HciSocket] Received errno: "
+                                                          + std::string(strerror(errno))
+                                                          + "(" + std::to_string(errno) + ")");
+    }
+
+    cmd.processResult(req);
+
 }
 
 } // namespace connection::hci

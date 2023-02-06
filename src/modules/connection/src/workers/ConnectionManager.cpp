@@ -22,11 +22,6 @@ ConnectionManager::ConnectionManager(std::shared_ptr<hci::ISubscriptionsStorage>
 {
 }
 
-ConnectionManager::~ConnectionManager()
-{
-    m_is_running = false;
-}
-
 void ConnectionManager::run()
 {
     utils::ConnectionContext context;
@@ -74,6 +69,11 @@ void ConnectionManager::run()
 void ConnectionManager::forceStop()
 {
     std::raise(SIGINT);
+}
+
+void ConnectionManager::stop()
+{
+    m_is_running = false;
 }
 
 } // namespace connection::workers

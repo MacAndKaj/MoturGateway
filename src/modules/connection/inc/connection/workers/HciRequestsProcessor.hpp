@@ -21,9 +21,10 @@ public:
     HciRequestsProcessor(std::shared_ptr<hci::ISubscriptionsStorage> subscriptions_storage,
                              std::shared_ptr<hci::IHciObjectsBuilder> hci_objects_builder);
     HciRequestsProcessor() = delete;
-    virtual ~HciRequestsProcessor();
+    virtual ~HciRequestsProcessor() = default;
 
     void run() override;
+    void stop() override;
 
 protected:
     void forceStop();

@@ -21,9 +21,11 @@ public:
     HciAsyncEventsDispatcher(std::shared_ptr<hci::ISubscriptionsStorage> subscriptions_storage,
                              std::shared_ptr<hci::IHciObjectsBuilder> hci_objects_builder);
     HciAsyncEventsDispatcher() = delete;
-	virtual ~HciAsyncEventsDispatcher();
+	virtual ~HciAsyncEventsDispatcher() = default;
 
     void run() override;
+
+    void stop() override;
 
 protected:
     void forceStop();

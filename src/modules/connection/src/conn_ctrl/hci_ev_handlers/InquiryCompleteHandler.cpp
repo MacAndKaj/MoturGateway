@@ -15,7 +15,7 @@ InquiryCompleteHandler::InquiryCompleteHandler(utils::IConnectionContext& contex
     : m_event(std::move(ev))
     , m_logger(context.getLogger())
 {
-    if (not std::holds_alternative<defs::InquiryCompleteParameters>(ev.parameters))
+    if (not std::holds_alternative<defs::InquiryCompleteParameters>(m_event.parameters))
     {
         throw common::exceptions::InitializationException("[InquiryCompleteHandler] Incorrect event received.");
     }

@@ -5,6 +5,7 @@
 #include <connection/defs/HciEventParser.hpp>
 
 #include <exceptions/UnknownFailureException.hpp>
+#include <connection/defs/BtDeviceAddress.hpp>
 
 namespace connection::defs
 {

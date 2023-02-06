@@ -15,7 +15,7 @@ ConnectionRequestHandler::ConnectionRequestHandler(utils::IConnectionContext& co
     : m_event(std::move(ev))
     , m_logger(context.getLogger())
 {
-    if (not std::holds_alternative<defs::ConnectionRequestParameters>(ev.parameters))
+    if (not std::holds_alternative<defs::ConnectionRequestParameters>(m_event.parameters))
     {
         throw common::exceptions::InitializationException("[ConnectionRequestHandler] Incorrect event received.");
     }

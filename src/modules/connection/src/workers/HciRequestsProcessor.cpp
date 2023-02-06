@@ -3,11 +3,13 @@
 */
 #include <connection/workers/HciRequestsProcessor.hpp>
 
-#include <log/MainLogger.hpp>
 #include <connection/hci/SubscriptionsStorage.hpp>
 #include <connection/hci/HciObjectsBuilder.hpp>
 #include <connection/utils/ConnectionContext.hpp>
+#include <connection/defs/HciCommandsConverter.hpp>
+#include <connection/hci/HciRequestExecutor.hpp>
 #include <exceptions/IMoturException.hpp>
+#include <log/MainLogger.hpp>
 
 #include <csignal>
 #include <iostream>
@@ -23,11 +25,6 @@ HciRequestsProcessor::HciRequestsProcessor(std::shared_ptr<hci::ISubscriptionsSt
 {
 }
 
-HciRequestsProcessor::~HciRequestsProcessor()
-{
-    m_is_running = false;
-}
-
 void HciRequestsProcessor::run()
 {
     utils::ConnectionContext context;
@@ -36,18 +33,21 @@ void HciRequestsProcessor::run()
     logger.info("[HciRequestsProcessor] Configuring worker");
 
     {
-        context.setSubscriptionsStorage(m_subscriptions_storage);
         context.setHciObjectsBuilder(m_hci_objects_builder);
+        context.setSubscriptionsStorage(m_subscriptions_storage);
+        context.setHciCommandsConverter(std::make_unique<defs::HciCommandsConverter>());
     }
 
     try
     {
+        hci::HciRequestExecutor executor(context);
         logger.info("[HciRequestsProcessor] Worker configured correctly. Enter main loop.");
         m_is_running = true;
 
         constexpr std::chrono::milliseconds interval(1);
         while (m_is_running)
         {
+            executor.work();
             std::this_thread::sleep_for(interval); //TODO: find other way to decrease CPU usage
         }
     }
@@ -73,6 +73,11 @@ void HciRequestsProcessor::run()
 void HciRequestsProcessor::forceStop()
 {
     std::raise(SIGINT);
+}
+
+void HciRequestsProcessor::stop()
+{
+    m_is_running = false;
 }
 
 } // namespace connection::workers

@@ -15,7 +15,7 @@ ConnectionCompleteHandler::ConnectionCompleteHandler(utils::IConnectionContext& 
     : m_event(std::move(ev))
     , m_logger(context.getLogger())
 {
-    if (not std::holds_alternative<defs::ConnectionCompleteParameters>(ev.parameters))
+    if (not std::holds_alternative<defs::ConnectionCompleteParameters>(m_event.parameters))
     {
         throw common::exceptions::InitializationException("[ConnectionCompleteHandler] Incorrect event received.");
     }
