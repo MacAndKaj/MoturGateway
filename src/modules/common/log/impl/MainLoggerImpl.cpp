@@ -32,6 +32,7 @@ MainLoggerImpl::MainLoggerImpl(const std::string& component_name)
     {
         throw common::exceptions::InitializationException("Main Logger initialization error: " + std::string(ex.what()));
     }
+    info("Log file stored in: " + std::string(m_log_file_path));
 }
 
 MainLoggerImpl::~MainLoggerImpl()

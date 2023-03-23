@@ -10,6 +10,11 @@ set(FILES
     ${LIBRARY_HEADERS_DIR}/connection/conn_ctrl/hci_ev_handlers/ConnectionRequestHandler.hpp
     ${LIBRARY_HEADERS_DIR}/connection/conn_ctrl/hci_ev_handlers/InquiryCompleteHandler.hpp
 
+    ${LIBRARY_HEADERS_DIR}/connection/conn_ctrl/scenarios/IScenario.hpp
+    ${LIBRARY_HEADERS_DIR}/connection/conn_ctrl/scenarios/IStep.hpp
+    ${LIBRARY_HEADERS_DIR}/connection/conn_ctrl/scenarios/ReadBDAddrStep.hpp
+    ${LIBRARY_HEADERS_DIR}/connection/conn_ctrl/scenarios/StartupScenario.hpp
+
     ${LIBRARY_HEADERS_DIR}/connection/conn_ctrl/ConnectionControl.hpp
     ${LIBRARY_HEADERS_DIR}/connection/conn_ctrl/HandleRecipes.hpp
     ${LIBRARY_HEADERS_DIR}/connection/conn_ctrl/IProcessingQueue.hpp
@@ -20,6 +25,9 @@ set(FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/hci_ev_handlers/ConnectionCompleteHandler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/hci_ev_handlers/ConnectionRequestHandler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/hci_ev_handlers/InquiryCompleteHandler.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/scenarios/ReadBDAddrStep.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/scenarios/StartupScenario.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/ConnectionControl.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/HandleRecipes.cpp

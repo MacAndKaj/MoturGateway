@@ -27,6 +27,7 @@ ConnectionModule::ConnectionModule()
 
 ConnectionModule::~ConnectionModule()
 {
+    m_logger->info("[ConnectionModule] Graceful shutdown.");
     for (auto& w : m_workers)
     {
         w->stop();

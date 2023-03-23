@@ -12,6 +12,12 @@ Job::Job(const std::function<void()>& fun)
 {
 }
 
+Job::Job(std::unique_ptr<scenarios::IScenario> scenario)
+    : m_scenario(std::move(scenario))
+    , m_fun{[this](){this->m_scenario->run();}}
+{
+}
+
 void Job::run()
 {
     if (m_fun)

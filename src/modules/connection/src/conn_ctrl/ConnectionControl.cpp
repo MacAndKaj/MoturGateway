@@ -4,6 +4,7 @@
 
 #include <connection/conn_ctrl/ConnectionControl.hpp>
 #include <connection/conn_ctrl/HandleRecipes.hpp>
+#include <connection/conn_ctrl/scenarios/StartupScenario.hpp>
 
 namespace connection::conn_ctrl
 {
@@ -33,6 +34,8 @@ void ConnectionControl::setup()
                 [this](auto&& event) { callback(std::forward<decltype(event)>(event));}
             ));
     }
+
+    m_processing_queue.addJob(std::make_unique<Job>(scenarios::StartupScenario::create()));
 }
 
 void ConnectionControl::process()
