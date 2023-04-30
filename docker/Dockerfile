@@ -1,4 +1,4 @@
-FROM macandkaj/motur_base_img
+FROM macandkaj/motur_base_img:243ab69a246a
 
 ARG BOOST_MIN_VERSION=80
 ARG CMAKE_VERSION=3.25.1
