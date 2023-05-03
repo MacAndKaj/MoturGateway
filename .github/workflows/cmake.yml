@@ -10,13 +10,13 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     container:
-      image: docker.io/macandkaj/motur_rpi3bp_dev:1
+      image: docker.io/macandkaj/motur_rpi3bp_dev:2
 
     steps:
     - uses: actions/checkout@v3
 
     - name: Configure CMake - Debug
-      run: cmake -B ${{github.workspace}}/build_dbg -DCMAKE_BUILD_TYPE=Release
+      run: cmake -B ${{github.workspace}}/build_dbg -DCMAKE_BUILD_TYPE=Debug
 
     - name: Build - Debug
       # Build your program with the given configuration
@@ -28,3 +28,19 @@ jobs:
     - name: Build - Release
       run: cmake --build ${{github.workspace}}/build_rel --config Release
 
+  test:
+    runs-on: ubuntu-22.04
+    container:
+      image: docker.io/macandkaj/motur_rpi3bp_dev:2
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build_dbg -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build_dbg --config Debug
+
+    - name: Test
+      run: ctest --output-on-failure --test-dir ${{github.workspace}}/build_dbg

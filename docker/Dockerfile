@@ -28,6 +28,7 @@ RUN apt-get update && \
         libusb-dev \
         libbluetooth-dev\
         libspdlog-dev \
+        googletest \
     && apt-get clean
 
 # System locale
@@ -46,4 +47,7 @@ RUN wget --no-check-certificate ${BOOST_URL} && \
     cd .. && \
     rm -rf boost_1_${BOOST_MIN_VERSION}_0 boost_1_${BOOST_MIN_VERSION}_0.tar.gz
 
-
+RUN cd /usr/src/googletest && \
+    mkdir build && cd build && \
+    cmake .. && make && make install && \
+    cd .. && rm -rf build && cd ${DEV_PATH}
