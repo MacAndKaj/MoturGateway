@@ -2,7 +2,7 @@
 # Copyright (C) 2022 MacAndKaj - All Rights Reserved
 #
 
-set(COMMON_HEADERS_DIR ${CMAKE_SOURCE_DIR}/src/modules/common)
+set(COMMON_HEADERS_DIR ${CMAKE_SOURCE_DIR}/src/common)
 set(CONNECTION_MODULE_HEADERS_DIR ${CMAKE_SOURCE_DIR}/src/modules/connection/inc)
 
 add_executable(App${PROJECT_NAME} main.cpp)

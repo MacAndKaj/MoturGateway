@@ -3,7 +3,7 @@
 #
 
 set(TEST_TARGET MainLoggerTests)
-set(LOG_ROOT ${CMAKE_SOURCE_DIR}/src/modules/common/log)
+set(LOG_ROOT ${CMAKE_SOURCE_DIR}/src/common/log)
 
 add_executable(${TEST_TARGET}
     MainLoggerTests.cpp

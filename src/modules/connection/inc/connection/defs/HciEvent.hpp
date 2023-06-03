@@ -13,6 +13,7 @@
 
 #include <variant>
 #include <map>
+#include <cstdint>
 
 namespace connection::defs
 {
